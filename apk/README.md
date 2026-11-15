@@ -1,11 +1,13 @@
-# 제출용 APK
+# CarRadio APK
 
-[최신 APK 다운로드](https://github.com/Gohwan/CarRadio/releases/download/v1.0.0-submission.20261115/CarRadio_release.apk) · [전체 제출 ZIP](https://github.com/Gohwan/CarRadio/releases/download/v1.0.0-submission.20261115/CarRadio_release_submission.zip)
+[APK 다운로드](https://github.com/Gohwan/CarRadio/releases/download/v1.0.0-submission.20261115/CarRadio_release.apk) · [다운로드](https://github.com/Gohwan/CarRadio/releases/tag/v1.0.0-submission.20261115)
 
-GitHub에서는 APK를 Releases에 배포합니다. 제출 ZIP을 풀면 `apk/CarRadio_release.apk`에 있습니다.
+Pleos Connect 에뮬레이터에서 PC의 로컬 중계 서버와 연결해 사용합니다.
 
-`CarRadio_release.apk`는 제출용 키로 서명한 release 빌드입니다. 디버깅과 R8 최적화는 비활성화했습니다. Pleos 에뮬레이터의 `10.0.2.2:8765`로 PC 중계 서버에 연결합니다.
+1. PC에서 `node relay/server.mjs`를 실행합니다.
+2. 에뮬레이터에 APK를 설치하고 위치·마이크 권한을 허용합니다.
+3. 앱에서 테스트 차량번호와 위치를 설정한 뒤 **설정 → 개발 테스트 → 동의하고 연결**로 접속합니다.
 
-수정본의 실제 설치·기동과 프로세스 유지, 에뮬레이터→PC HTTP 경로를 확인했습니다. 버튼·실음성·앱 간 전체 송수신은 미검증입니다. `../docs/RELEASE_RUNTIME_VALIDATION.md`에 범위를 기록했습니다.
+에뮬레이터의 서버 주소는 `http://10.0.2.2:8765`입니다.
 
-제출 시 파일명은 `팀명_CarRadio_release.apk`로 변경합니다. 서명키와 암호는 이 묶음에 포함하지 않습니다.
+[앱 소개](../README.md) · [빌드 방법](../docs/RELEASE_BUILD.md) · [테스트](../docs/VALIDATION.md)

@@ -31,9 +31,7 @@
   "installation_and_runtime_verified": true,
   "runtime_requirement": "Pleos Connect emulator plus PC relay/server.mjs; no deployed Internet relay",
   "optimization": {
-    "r8_enabled": false,
-    "prior_apk_sha256": "f7236239acff836ee3c381235e56531e0fc3426d476e0258a14d59cb1c57435b",
-    "prior_failure": "IllegalAccessError during AndroidX startup with partial packageScope optimization"
+    "r8_enabled": false
   },
   "runtime": {
     "time": "2026-11-15T13:04:05.612Z",
@@ -57,7 +55,7 @@
     },
     "app_relay_end_to_end_verified": false,
     "voice_and_ui_verified": false,
-    "scope": "Signed APK installation, cold start, resumed activity, reported rendered window, stable process, absence of fatal errors for this process, and emulator-to-PC HTTP route. Screen content, buttons, speech, audio and full app-to-peer message exchange were not exercised in this release session."
+    "scope": "APK installation, cold start, resumed activity, rendered-window system report, stable process, absence of fatal errors for the application process, and emulator-to-PC HTTP route. UI interactions, speech, audio quality, latency, and complete app-to-peer messaging are outside the tested scope."
   },
   "relay_tests": {
     "tests": 47,

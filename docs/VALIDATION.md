@@ -1,32 +1,40 @@
-# 검증 범위
+# 테스트
 
-중계 서버·워키토키·PCM 테스트는 2026-11-15 Node.js v24.22.1에서 47개를 실행해 모두 통과했습니다.
-Kotlin 정책 테스트 37개와 Android/Compose/AAOS 소스 컴파일은 2026-11-14에 별도로 확인했습니다.
-Kotlin 검증은 Gradle 전체 APK 빌드 성공과 구분합니다.
+## 자동 테스트
 
-## 실제 화면 조작 시연
+중계 서버·워키토키·PCM:
 
-1. 수신 범위 3km와 1km 선택
-2. 위험 신호와 타이어 문제 도움 요청을 작성·확인한 뒤 전송
-3. 두 테스트 번호의 메시지를 수신한 뒤 이전 위험 메시지에 답장
-4. 답장에 이전 원문이 포함돼 PC 테스트 수신기에 도착하는지 확인
-5. 워키토키 수신 동의, PC 시험음 수신과 해당 발언자 음소거
-6. 앱의 1초 시험음이 PC 수신기에서 100ms PCM 10프레임으로 도착하는지 확인
-7. 주행 제한·상태 인식 불가 디버그 화면과 자동 상태 복귀
+```sh
+node --test relay/server.test.mjs relay/walkie-talkie.test.mjs relay/walkie-pcm.test.mjs
+```
 
-영상은 실제 Pleos 에뮬레이터 화면 녹화이며 자막과 수신 시험음 재생 소리를 포함합니다.
-사람의 실제 발화, 인증 차량번호, 실차 주행 승인을 검증했다는 의미는 아닙니다.
+Android 단위 테스트:
 
-아래 release 빌드 기록과 RELEASE_VALIDATION.json에서 현재 APK 검증 범위를 확인합니다.
+```powershell
+.\gradlew.bat testDebugUnitTest
+```
 
+| 항목 | 결과 |
+| --- | --- |
+| 서버·워키토키·PCM | 47개 통과 |
+| Kotlin 단위 테스트 | debug 변형 38개 통과 |
+| release APK | 서명·정렬, 설치·기동, 프로세스 유지, 에뮬레이터 → PC HTTP 연결 확인 |
+| Android Lint | 미실행 |
 
-## 2026-11-15 release APK
+[APK 테스트 결과](RELEASE_RUNTIME_VALIDATION.md) · [상세 데이터](RELEASE_VALIDATION.json)
 
-release APK를 생성하고 서명·정렬·매니페스트를 검증했습니다. 상세 결과는 RELEASE_VALIDATION.json을 참조합니다. 이 APK의 에뮬레이터 설치·실행 검증은 완료하지 않았습니다.
+## 시연 영상
 
-단위 테스트 38개 통과. Android Lint는 검사 도구의 오프라인 누락으로 실행하지 않았습니다.
+[영상 보기](CarRadio_demo_full.mp4)
 
+- 채널과 수신 범위 선택
+- 위험·도움 신호 전송
+- 받은 메시지에 원문을 인용한 답장
+- 워키토키 시험음 송수신과 음소거
+- 주행 제한·상태 인식 불가 화면
 
-## 2026-11-15 release 시작 오류 수정 후 검증
+영상은 debug 빌드, 시험음, 테스트 번호·좌표와 주행 상태 시뮬레이션을 사용합니다. 실제 발화나 실차 주행 테스트를 담은 영상은 아닙니다.
 
-위의 설치·실행 미검증 기록은 최초 APK 생성 당시 상태입니다. 이후 시작 오류를 재현하여 부분 R8 최적화를 끈 APK로 교체하고, 실제 설치·기동과 프로세스 유지, 에뮬레이터→PC HTTP 경로를 확인했습니다. 자세한 최신 결과는 RELEASE_RUNTIME_VALIDATION.md와 RELEASE_VALIDATION.json을 참조합니다. 버튼·실음성·앱 간 전체 송수신과 Android Lint는 미검증입니다.
+## 테스트 범위 밖
+
+release의 버튼 조작, 실제 발화의 STT·TTS, 마이크 양방향 음질·지연, 앱 간 전체 메시지 교환과 Android Lint는 확인되지 않았습니다.
