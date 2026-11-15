@@ -1,0 +1,68 @@
+{
+  "created_kst": "2026-11-15T22:00:49.8885143+09:00",
+  "artifact": "CarRadio_release.apk",
+  "bytes": 42489808,
+  "sha256": "531b0ba0a23bee69e5a3c7074061275293bc7d180d966493d6df464b3a9fd84f",
+  "build_type": "release",
+  "application_id": "com.example.carradio.submission",
+  "version": "1.0-submission",
+  "debuggable": false,
+  "local_demo": true,
+  "cleartext_exception": "10.0.2.2 only",
+  "signature_verified": true,
+  "alignment_verified": true,
+  "certificate": "Signer #1 certificate SHA-256 digest: 9a5e65edbfeb761cd496746137e8a261428d05406664a28b2930d62811635219",
+  "unit_tests": {
+    "failures": 0,
+    "skipped": 0,
+    "errors": 0,
+    "tests": 38,
+    "variant": "debug"
+  },
+  "lint": {
+    "reason": "Offline environment lacks com.android.tools.lint:lint-gradle:32.5.1",
+    "status": "not_run",
+    "excluded_tasks": [
+      "lintVitalAnalyzeRelease",
+      "lintVitalReportRelease",
+      "lintVitalRelease"
+    ]
+  },
+  "installation_and_runtime_verified": true,
+  "runtime_requirement": "Pleos Connect emulator plus PC relay/server.mjs; no deployed Internet relay",
+  "optimization": {
+    "r8_enabled": false,
+    "prior_apk_sha256": "f7236239acff836ee3c381235e56531e0fc3426d476e0258a14d59cb1c57435b",
+    "prior_failure": "IllegalAccessError during AndroidX startup with partial packageScope optimization"
+  },
+  "runtime": {
+    "time": "2026-11-15T13:04:05.612Z",
+    "serial": "emulator-5554",
+    "avd": "CarRadio_Release_Test",
+    "platform": "Pleos Connect 2.1.0 / Android 14",
+    "user": 10,
+    "application_id": "com.example.carradio.submission",
+    "apk_sha256": "531b0ba0a23bee69e5a3c7074061275293bc7d180d966493d6df464b3a9fd84f",
+    "installed_hash_matches": true,
+    "pid": "1196",
+    "process_stable": true,
+    "activity_resumed": true,
+    "window_reported_drawn": true,
+    "crash_lines": "",
+    "emulator_host_http_status": 200,
+    "emulator_host_health": {
+      "ok": true,
+      "service": "CarRadio local relay",
+      "protocol": 3
+    },
+    "app_relay_end_to_end_verified": false,
+    "voice_and_ui_verified": false,
+    "scope": "Signed APK installation, cold start, resumed activity, reported rendered window, stable process, absence of fatal errors for this process, and emulator-to-PC HTTP route. Screen content, buttons, speech, audio and full app-to-peer message exchange were not exercised in this release session."
+  },
+  "relay_tests": {
+    "tests": 47,
+    "passed": 47,
+    "failures": 0,
+    "log": "relay-tests-runtime.log"
+  }
+}

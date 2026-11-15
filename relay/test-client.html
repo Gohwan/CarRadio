@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CarRadio 상대 차량 테스트</title>
+  <link rel="stylesheet" href="/test-client.css">
+  <script src="/test-client.js" defer></script>
+  <script src="/walkie-client.js" type="module"></script>
+</head>
+<body>
+<main>
+  <h1>CarRadio 상대 차량 테스트</h1>
+  <p>이 PC의 중계 서버에 연결하는 테스트 기기입니다. 실제 차량이 아닙니다. 워키토키 참여 후에는 상대 목소리가 바로 재생됩니다. 별도의 녹음 파일 메시지는 재생 버튼으로 듣습니다.</p>
+  <p>앱의 <strong>메시지 음성 읽기</strong>를 먼저 끄고, 같은 채널과 가까운 좌표로 연결하세요.</p>
+  <div class="identity"><strong id="identity"></strong><span id="status" role="status">미연결</span></div>
+
+  <fieldset>
+    <legend>연결 설정</legend>
+    <div class="settings">
+      <label>차량번호 뒤 4자리<input id="plate4" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" placeholder="예: 0007"></label>
+      <label>채널<select id="channel"><option>일반 대화</option><option>도로 위험</option><option>도움 요청</option></select></label>
+      <label>수신 범위<select id="range"><option value="1">1km</option><option value="3">3km</option><option value="5">5km</option></select></label>
+      <label>위도<input id="latitude" type="number" step="any" min="-90" max="90" value="37.42200"></label>
+      <label>경도<input id="longitude" type="number" step="any" min="-180" max="180" value="-122.08400"></label>
+    </div>
+    <label class="receive"><input id="receiving" type="checkbox" checked> 수신 허용</label>
+    <p class="hint">기본값은 에뮬레이터 좌표 예시입니다. 앱의 설정에 표시된 위도·경도와 맞추세요.</p>
+    <p class="hint">번호는 직접 입력한 정보이며 차량 인증을 하지 않습니다. 입력번호·설정한 위치·메시지를 이 PC의 서버와 수신 기기에 공유합니다. 메시지·음성은 서버에서 최대 2분, 연결 정보는 갱신 중단 후 최대 15초 유지됩니다.</p>
+    <button id="connect" type="button">번호 공유하고 연결</button>
+    <button id="disconnect" type="button" disabled>연결 해제</button>
+  </fieldset>
+
+  <section aria-labelledby="nearby-title">
+    <h2 id="nearby-title">주변 기기</h2>
+    <ul id="peers"><li>연결 후 확인할 수 있습니다.</li></ul>
+  </section>
+
+  <section aria-labelledby="walkie-title">
+    <h2 id="walkie-title">워키토키</h2>
+    <p class="hint">같은 채널·반경 안에서 워키토키에 참여한 기기끼리 목소리를 주고받습니다. 참여하면 받은 음성이 바로 재생됩니다. 한 번에 한 명, 최대 15초이며 이 창을 벗어나면 종료됩니다.</p>
+    <button id="walkie-join" type="button" disabled>음성 수신에 동의하고 참여</button>
+    <p id="walkie-status" role="status">서버에 연결한 뒤 참여하세요.</p>
+    <p id="walkie-notice" role="status"></p>
+    <button id="walkie-mute" type="button" hidden disabled>이 발언자 음소거</button>
+    <button id="walkie-unmute" type="button" hidden disabled>음소거 모두 해제 (0명)</button>
+    <button id="walkie-mic" type="button" disabled>말하기용 마이크 허용</button>
+    <label class="receive"><input id="walkie-tap" type="checkbox" checked> 탭하여 시작·종료</label>
+    <button id="walkie-talk" type="button" disabled aria-pressed="false">말하기 시작</button>
+    <label for="walkie-level">마이크 입력</label>
+    <progress id="walkie-level" max="1" value="0" style="width:100%;height:16px;accent-color:var(--ink)"></progress>
+    <p id="walkie-level-hint" class="hint">말하기를 시작하면 입력 크기가 표시됩니다.</p>
+    <button id="walkie-tone" type="button" disabled>마이크 없이 1초 테스트음 보내기</button>
+    <p class="hint">테스트음은 440Hz 소리입니다. 상대도 워키토키에 참여한 상태에서 사용하세요. 가상 자동응답 차량은 워키토키에 참여하지 않습니다.</p>
+    <p class="hint">발언을 끝낸 뒤 같은 기기는 2초 기다립니다. 음소거는 목소리에만 적용되고 문자 신호는 계속 받습니다. 나갔다 다시 참여하면 음소거가 해제됩니다.</p>
+  </section>
+
+  <section aria-labelledby="send-title">
+    <h2 id="send-title">메시지 보내기</h2>
+    <label for="message">상대 앱에 보낼 내용</label>
+    <textarea id="message" rows="3" maxlength="200" placeholder="예: 요청을 확인했습니다."></textarea>
+    <div class="send-row"><button id="send" type="button" disabled>전송</button><span id="length">0/200</span></div>
+    <p id="transmission" role="status">아직 전송한 메시지가 없습니다.</p>
+  </section>
+
+  <section aria-labelledby="voice-title">
+    <h2 id="voice-title">녹음한 목소리 보내기</h2>
+    <label>15초 이하 M4A 녹음 파일<input id="voice-file" type="file" accept="audio/mp4,.m4a"></label>
+    <p class="hint">128KiB 이하 · 텍스트 변환 없이 파일의 음성을 전달합니다. 녹음 파일은 전송 버튼을 누를 때 공유됩니다.</p>
+    <button id="send-voice" type="button" disabled>목소리 전송</button>
+    <p id="voice-status" role="status">녹음 파일을 선택하세요.</p>
+  </section>
+
+  <section aria-labelledby="inbox-title">
+    <h2 id="inbox-title">받은 메시지</h2>
+    <p class="hint">최근 10건 · 테스트 메시지는 최대 2분 보관. 앱 수신 확인은 메시지를 처리한 프로그램의 응답입니다. 사람이 읽었는지는 확인하지 않습니다.</p>
+    <ol id="inbox"><li>받은 메시지가 없습니다.</li></ol>
+  </section>
+</main>
+</body>
+</html>
