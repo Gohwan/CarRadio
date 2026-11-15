@@ -1,5 +1,9 @@
 # 제출용 APK
 
+[최신 APK 다운로드](https://github.com/Gohwan/CarRadio/releases/download/v1.0.0-submission.20261115/CarRadio_release.apk) · [전체 제출 ZIP](https://github.com/Gohwan/CarRadio/releases/download/v1.0.0-submission.20261115/CarRadio_release_submission.zip)
+
+GitHub에서는 APK를 Releases에 배포합니다. 제출 ZIP을 풀면 `apk/CarRadio_release.apk`에 있습니다.
+
 `CarRadio_release.apk`는 제출용 키로 서명한 release 빌드입니다. 디버깅과 R8 최적화는 비활성화했습니다. Pleos 에뮬레이터의 `10.0.2.2:8765`로 PC 중계 서버에 연결합니다.
 
 수정본의 실제 설치·기동과 프로세스 유지, 에뮬레이터→PC HTTP 경로를 확인했습니다. 버튼·실음성·앱 간 전체 송수신은 미검증입니다. `../docs/RELEASE_RUNTIME_VALIDATION.md`에 범위를 기록했습니다.
