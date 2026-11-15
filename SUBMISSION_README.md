@@ -1,5 +1,7 @@
 # CarRadio
 
+최신 APK와 전체 제출 ZIP은 [GitHub 릴리스](https://github.com/Gohwan/CarRadio/releases/tag/v1.0.0-submission.20261115)에서 받습니다.
+
 Pleos Connect에서 주변 참여 기기와 워키토키 음성, 도로 위험 신호, 도움 요청을 주고받는 Android 시제품입니다.
 현재 구현은 같은 PC의 로컬 중계 서버를 사용하는 **에뮬레이터 로컬 시연 버전**입니다.
 
@@ -89,7 +91,7 @@ Android 정책 테스트 소스는 `app/src/test/`에 있습니다. Android Stud
 - 실제 에뮬레이터에서 버튼을 눌러 위험·도움 신호 전송, 이전 메시지 답장 전송, 시험음 수신·음소거와 앱 시험음 전송을 확인했습니다.
 - 앱 시험음은 PC 수신기에서 100ms PCM 10프레임 수신을 확인했습니다. 주행 제한·상태 인식 불가 화면도 디버그 모드로 전환해 확인했습니다.
 - 2026-11-15: Gradle release APK 생성 완료. 서명·정렬·매니페스트 검증 결과는 `docs/RELEASE_VALIDATION.json`에 기록했습니다. 이후 실행 검증에서 시작 오류를 확인하여 R8 부분 최적화를 비활성화한 APK로 교체했습니다. 수정본의 설치·기동·프로세스 유지와 에뮬레이터→PC HTTP 경로를 확인했습니다. 상세 범위는 `docs/RELEASE_RUNTIME_VALIDATION.md`를 참조하세요.
-- **서명된 release APK:** [apk/CarRadio_release.apk](apk/CarRadio_release.apk). 앱 ID는 `com.example.carradio.submission`, 디버깅은 비활성화됐습니다. 로컬 통신과 녹음은 release에서도 사용할 수 있습니다. [release 빌드·실행 안내](docs/RELEASE_BUILD.md)를 확인하세요.
+- **서명된 release APK:** [CarRadio_release.apk](https://github.com/Gohwan/CarRadio/releases/download/v1.0.0-submission.20261115/CarRadio_release.apk). 앱 ID는 `com.example.carradio.submission`, 디버깅은 비활성화됐습니다. 로컬 통신과 녹음은 release에서도 사용할 수 있습니다. [release 빌드·실행 안내](docs/RELEASE_BUILD.md)를 확인하세요.
 - 차량번호 자동 인증·수정 방지 연동, 실제 주변 차량 검색, 인터넷 중계 서비스, 제조사 차량 계정 연동은 후속 개발 항목입니다.
 - 매니페스트에 Distraction Optimization 선언이 없습니다. 앱 내부 제한 UI 구현은 실차 주행 중 앱 사용 승인이나 카테고리 심사 완료를 의미하지 않습니다.
 - 화면을 벗어나면 워키토키와 통신을 종료하고 자동으로 마이크 송신을 재개하지 않습니다.
@@ -111,7 +113,7 @@ Android 정책 테스트 소스는 `app/src/test/`에 있습니다. Android Stud
 
 ## 제출용 APK
 
-`apk/CarRadio_release.apk`는 Pleos 에뮬레이터와 PC 중계 서버가 필요한 시제품입니다. 설치 후 위치·마이크 권한과 테스트 번호를 설정하고 **설정 → 개발 테스트**에서 연결합니다. release에는 디버그 주행 상태 선택 버튼을 포함하지 않습니다. 기존 영상의 주행 테스트 화면과 이 차이가 있습니다.
+제출 ZIP의 `apk/CarRadio_release.apk`는 Pleos 에뮬레이터와 PC 중계 서버가 필요한 시제품입니다. 설치 후 위치·마이크 권한과 테스트 번호를 설정하고 **설정 → 개발 테스트**에서 연결합니다. release에는 디버그 주행 상태 선택 버튼을 포함하지 않습니다. 기존 영상의 주행 테스트 화면과 이 차이가 있습니다.
 
 이번 빌드의 단위 테스트 38개가 통과했습니다. 오프라인 환경에 Android Lint 도구가 없어 Lint 검사는 실행하지 않았습니다.
 
